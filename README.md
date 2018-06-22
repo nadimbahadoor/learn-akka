@@ -22,6 +22,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Actor System Introduction](http://allaboutscala.com/scala-frameworks/akka/#actor-system-introduction)
 - [Tell Pattern](http://allaboutscala.com/scala-frameworks/akka/#tell-pattern)
 - [Ask Pattern](http://allaboutscala.com/scala-frameworks/akka/#ask-pattern)
+- [Ask Pattern mapTo](http://allaboutscala.com/scala-frameworks/akka/#ask-pattern-mapto)
 
 
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
