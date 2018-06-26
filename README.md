@@ -24,6 +24,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Ask Pattern](http://allaboutscala.com/scala-frameworks/akka/#ask-pattern)
 - [Ask Pattern mapTo](http://allaboutscala.com/scala-frameworks/akka/#ask-pattern-mapto)
 - [Ask Pattern pipeTo](http://allaboutscala.com/scala-frameworks/akka/#ask-pattern-pipeto)
+- [Actor Hierarchy](http://allaboutscala.com/scala-frameworks/akka/#actor-hierarchy)
 
 
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
