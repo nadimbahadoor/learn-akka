@@ -26,6 +26,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Ask Pattern pipeTo](http://allaboutscala.com/scala-frameworks/akka/#ask-pattern-pipeto)
 - [Actor Hierarchy](http://allaboutscala.com/scala-frameworks/akka/#actor-hierarchy)
 - [Actor Lookup](http://allaboutscala.com/scala-frameworks/akka/#actor-lookup)
+- [Child Actors](http://allaboutscala.com/scala-frameworks/akka/#child-actors)
 
 
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
