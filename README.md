@@ -28,6 +28,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Actor Lookup](http://allaboutscala.com/scala-frameworks/akka/#actor-lookup)
 - [Child Actors](http://allaboutscala.com/scala-frameworks/akka/#child-actors)
 - [Actor Lifecycle](http://allaboutscala.com/scala-frameworks/akka/#actor-lifecycle)
+- [Actor PoisonPill](http://allaboutscala.com/scala-frameworks/akka/#actor-poisonpill)
 
 
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
