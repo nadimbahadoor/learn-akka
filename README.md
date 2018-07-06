@@ -31,6 +31,9 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Actor PoisonPill](http://allaboutscala.com/scala-frameworks/akka/#actor-poisonpill)
 - [Error Kernel Supervision](http://allaboutscala.com/scala-frameworks/akka/#error-kernel-supervision)
 
+# Akka Routers
+- [RoundRobinPool](http://allaboutscala.com/scala-frameworks/akka/#roundrobinpool-router)
+
 
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
