@@ -35,7 +35,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [RoundRobinPool](http://allaboutscala.com/scala-frameworks/akka/#roundrobinpool-router)
 - [ScatterGatherFirstCompletedPool](http://allaboutscala.com/scala-frameworks/akka/#scattergatherfirstcompletedpool-router)
 - [TailChoppingPool](http://allaboutscala.com/scala-frameworks/akka/#tailchoppingpool-router)
-
+- [BroadcastPool](http://allaboutscala.com/scala-frameworks/akka/#broadcastpool-router)
 
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
