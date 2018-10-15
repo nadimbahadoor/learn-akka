@@ -37,6 +37,9 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [TailChoppingPool](http://allaboutscala.com/scala-frameworks/akka/#tailchoppingpool-router)
 - [BroadcastPool](http://allaboutscala.com/scala-frameworks/akka/#broadcastpool-router)
 
+# Akka Dispatchers
+- [Akka Default Dispatcher](http://allaboutscala.com/scala-frameworks/akka/#akka-default-dispatcher)
+
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
 ## Contact
