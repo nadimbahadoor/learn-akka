@@ -1,8 +1,8 @@
-package com.allaboutscala.com.learn.akka.routers
+package com.allaboutscala.learn.akka.routers
 
 import akka.actor.SupervisorStrategy.{Escalate, Restart}
 import akka.actor._
-import akka.routing.{RoundRobinPool, DefaultResizer}
+import akka.routing.{TailChoppingPool, DefaultResizer}
 import akka.util.Timeout
 
 import scala.concurrent.Future
@@ -28,8 +28,7 @@ import scala.concurrent.Future
   * License for the specific language governing permissions and limitations under
   * the License.
   */
-object Tutorial_01_RoundRobinPoolRouter extends App {
-
+object Tutorial_03_TailChoppingPool extends App {
 
   println("Step 1: Create an actor system")
   val system = ActorSystem("DonutStoreActorSystem")
@@ -44,20 +43,17 @@ object Tutorial_01_RoundRobinPoolRouter extends App {
   println("\nStep 6: Use Akka Ask Pattern and send a bunch of requests to DonutStockActor")
   import DonutStoreProtocol._
   import akka.pattern._
+
   import scala.concurrent.ExecutionContext.Implicits.global
   import scala.concurrent.duration._
   implicit val timeout = Timeout(5 second)
 
-  val vanillaStockRequests = (1 to 10).map(i => (donutStockActor ? CheckStock("vanilla")).mapTo[Int])
+  val vanillaStockRequests = (1 to 2).map(i => (donutStockActor ? CheckStock("vanilla")).mapTo[Int])
   for {
     results <- Future.sequence(vanillaStockRequests)
   } yield println(s"vanilla stock results = $results")
 
   Thread.sleep(5000)
-
-
-
-  val isTerminated = system.terminate()
 
 
 
@@ -86,13 +82,20 @@ object Tutorial_01_RoundRobinPoolRouter extends App {
           Escalate
       }
 
-    // We will not create one worker actor.
+    // We will not create a single worker actor.
     // val workerActor = context.actorOf(Props[DonutStockWorkerActor], name = "DonutStockWorkerActor")
 
-    // We are using a resizable RoundRobinPool.
+    // We are using a resizable TailChoppingPool.
+    val workerName = "DonutStockWorkerActor"
     val resizer = DefaultResizer(lowerBound = 5, upperBound = 10)
-    val props = RoundRobinPool(5, Some(resizer), supervisorStrategy = supervisorStrategy)
-      .props(Props[DonutStockWorkerActor])
+    val props = TailChoppingPool(
+      nrOfInstances = 5,
+      resizer = Some(resizer),
+      within = 5 seconds,
+      interval = 10 millis,
+      supervisorStrategy = supervisorStrategy
+    ).props(Props[DonutStockWorkerActor])
+
     val donutStockWorkerRouterPool: ActorRef = context.actorOf(props, "DonutStockWorkerRouter")
 
     def receive = {
@@ -121,4 +124,5 @@ object Tutorial_01_RoundRobinPoolRouter extends App {
       100
     }
   }
+
 }
