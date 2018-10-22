@@ -2,11 +2,11 @@ package com.allaboutscala.learn.akka.dispatchers
 
 import java.util.concurrent.TimeUnit
 
-import akka.actor.{ActorLogging, Actor, Props, ActorSystem}
+import akka.actor.{Actor, ActorLogging, Props, ActorSystem}
 import akka.util.Timeout
-import scala.concurrent.duration._
 
-import scala.concurrent.{Future, Await}
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration.Duration
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -29,33 +29,35 @@ import scala.concurrent.{Future, Await}
   * License for the specific language governing permissions and limitations under
   * the License.
   */
-object Tutorial_03_AkkaFixedThreadPoolDispatcher extends App {
+object Tutorial_04_AkkaResizableThreadPool extends App {
   println("Step 1: Create actor system")
   val system = ActorSystem("DonutStoreActorSystem")
 
 
 
-  println("\nStep 2: Create fixed thread pool configuration in application.conf")
+  println("\nStep 2: Create resizable thread pool configuration in application.conf")
 
 
 
-  println("Step 3: Lookup our fixed-thread-pool dispatcher from application.conf")
+
+  println("Step 3: Lookup our resizable-thread-pool dispatcher from application.conf")
   import DonutStoreProtocol._
   import akka.pattern._
   implicit val timeout = Timeout(1, TimeUnit.MINUTES)
-  implicit val executionContext = system.dispatchers.lookup("fixed-thread-pool")
+  implicit val executionContext = system.dispatchers.lookup("resizable-thread-pool")
+
 
 
   println("\nStep 6: Create 10 requests using pool-size = 10")
-  println("\nStep 7: Create 10 requests using pool-size = 5")
   val clientRequests = (1 to 10).map(i => StockRequest(s"vanilla donut", i))
   val futures = clientRequests.map{ stock =>
     val actorRef = system
       .actorOf(Props[DonutStockRequestActor]
-      .withDispatcher("fixed-thread-pool"))
+      .withDispatcher("resizable-thread-pool"))
     (actorRef ? stock).mapTo[DonutStockRequest]
   }
-  val results = Await.result(Future.sequence(futures), 1 minute)
+
+  val results = Await.result(Future.sequence(futures), Duration.Inf)
   results.foreach(println(_))
 
 
