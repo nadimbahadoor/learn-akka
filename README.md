@@ -44,6 +44,9 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Resizable Thread Pool Dispatcher](http://allaboutscala.com/scala-frameworks/akka/#resizable-thread-pool)
 - [Pinned Thread Pool Dispathcer](http://allaboutscala.com/scala-frameworks/akka/#pinned-thread-pool-dispatcher)
 
+# Akka FSM
+- [Actor FSM become()](http://allaboutscala.com/scala-frameworks/akka/#actor-fsm-become)
+
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
 ## Contact
