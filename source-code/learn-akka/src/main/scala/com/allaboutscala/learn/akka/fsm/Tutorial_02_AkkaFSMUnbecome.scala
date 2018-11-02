@@ -1,6 +1,6 @@
 package com.allaboutscala.learn.akka.fsm
 
-import akka.actor.{ActorLogging, ActorSystem, Props, Actor}
+import akka.actor.{ActorLogging, Actor, ActorSystem, Props}
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -23,21 +23,21 @@ import akka.actor.{ActorLogging, ActorSystem, Props, Actor}
   * License for the specific language governing permissions and limitations under
   * the License.
   */
-object Tutorial_01_AkkaFSMBecome extends App {
-  println("Step 1: Create ActorSystem")
-  val system = ActorSystem("ActorStateBecome")
+object Tutorial_02_AkkaFSMUnbecome extends App {
+
+  println("Step 1. Create ActorSystem")
+  val system = ActorSystem("ActorState")
+
 
 
   println("\nStep 3: Create DonutBakingActor")
   val bakingActor = system.actorOf(Props[DonutBakingActor], "donut-baking-actor")
-
-
-
-  println("\nStep 4: Send events to actor to switch states and process events")
   bakingActor ! "boom" // not valid
   Thread.sleep(2000)
 
 
+
+  println("\nStep 4: Send events to actor to switch states and process events")
   bakingActor ! "BakeDonut"
   Thread.sleep(2000)
 
@@ -46,38 +46,57 @@ object Tutorial_01_AkkaFSMBecome extends App {
   Thread.sleep(2000)
 
 
+
   bakingActor ! "BakeVanilla"
   Thread.sleep(2000)
+
 
 
   bakingActor ! "Bake Chocolate"
   Thread.sleep(2000)
 
 
+
+  bakingActor ! "StopBaking"
+  Thread.sleep(2000)
+
+
+
+  bakingActor ! "BakeVanilla"
+  Thread.sleep(2000)
+
+
+
+  println("\nStep 5: Shutdown actor system")
   system.terminate()
-  
 
 
-  println("\nStep 2: Define DonutBakingActor with become() states")
+
+  println("\nStep 2: Define DonutBakingActor with become() and unbecome() states")
   class DonutBakingActor extends Actor with ActorLogging {
     import context._
 
     def receive = {
       case "BakeDonut" =>
-        log.info("Becoming BakeDonut state")
+        log.info("becoming bake state")
         become {
           case "BakeVanilla" =>
             log.info("baking vanilla")
 
-          case  "BakePlain" =>
+          case "BakePlain" =>
             log.info("baking plain")
 
+          case "StopBaking" =>
+            log.info("stopping to bake")
+            unbecome()
+
           case event @ _ =>
-            log.info(s"Allowed events [BakeVanilla, BakePlain], event = $event")
+            log.info(s"Allowed events [BakeVanilla, BakePlain, StopBaking], event = $event")
         }
 
       case event @ _ =>
-        log.info(s"Allowed events [BakeDonut], events = $event")
+        log.info(s"Allowed events [BakeDonut], event = $event")
     }
   }
+
 }
