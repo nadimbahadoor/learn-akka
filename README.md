@@ -49,6 +49,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Actor FSM unbecome()](http://allaboutscala.com/scala-frameworks/akka/#actor-fsm-unbecome)
 - [Actor FSM protocol](http://allaboutscala.com/scala-frameworks/akka/#actor-fsm-protocol)
 - [Actor LoggingFSM](http://allaboutscala.com/scala-frameworks/akka/#actor-fsm-loggingfsm)
+- [Actor LoggingFSM Part Two](http://allaboutscala.com/scala-frameworks/akka/#actor-fsm-loggingfsm-part-two)
 
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
