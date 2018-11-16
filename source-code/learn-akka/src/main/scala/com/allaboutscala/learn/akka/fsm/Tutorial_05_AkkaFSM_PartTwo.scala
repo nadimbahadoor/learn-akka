@@ -89,8 +89,6 @@ object Tutorial_05_AkkaFSM_PartTwo extends App {
   class DonutBakingActor extends LoggingFSM[BakingStates, BakingData] {
     startWith(Stop, BakingData.initialQuantity)
 
-    initialize()
-
     when(Stop) {
       case Event(BakeDonut, _) =>
         println("Current state is [Stop], switching to [Start]")
@@ -106,5 +104,7 @@ object Tutorial_05_AkkaFSM_PartTwo extends App {
         println(s"Event StopBaking, current donut quantity = ${stateData.qty}")
         goto(Stop)
     }
+
+    initialize()
   }
 }

@@ -1,6 +1,6 @@
 package com.allaboutscala.learn.akka.fsm
 
-import akka.actor.{LoggingFSM, ActorSystem, Props}
+import akka.actor.{ActorSystem, Props, LoggingFSM}
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -23,7 +23,7 @@ import akka.actor.{LoggingFSM, ActorSystem, Props}
   * License for the specific language governing permissions and limitations under
   * the License.
   */
-object Tutorial_04_AkkaFSM extends App {
+object Tutorial_06_AkkaFSM_PartThree extends App {
 
   println("Step 1: Create ActorSystem")
   val system = ActorSystem("DonutActorFSM")
@@ -36,12 +36,12 @@ object Tutorial_04_AkkaFSM extends App {
 
 
   println("\nStep 7: Send events to actor to switch states and process events")
-  bakingActor ! AddTopping
+  bakingActor ! BakeDonut
   Thread.sleep(2000)
 
 
 
-  bakingActor ! BakeDonut
+  bakingActor ! "some random event"
   Thread.sleep(2000)
 
 
@@ -55,6 +55,7 @@ object Tutorial_04_AkkaFSM extends App {
   sealed trait BakingEvents
   case object BakeDonut extends BakingEvents
   case object AddTopping extends BakingEvents
+  case object StopBaking extends BakingEvents
 
 
 
@@ -75,6 +76,7 @@ object Tutorial_04_AkkaFSM extends App {
   }
 
 
+
   println("\nStep 5: Define DonutBakingActor using LoggingFSM trait")
   class DonutBakingActor extends LoggingFSM[BakingStates, BakingData] {
     startWith(Stop, BakingData.initialQuantity)
@@ -89,11 +91,20 @@ object Tutorial_04_AkkaFSM extends App {
         stay
     }
 
+
     when(Start) {
-      case _ => throw new IllegalStateException("stop")
+      case Event(StopBaking, _) =>
+        println(s"Event StopBaking, current donut quantity = ${stateData.qty}")
+        goto(Stop)
+    }
+
+
+    whenUnhandled {
+      case Event(event, stateData) =>
+        println(s"We've received an unhandled event = [$event] for the state data = [$stateData]")
+        goto(Stop)
     }
 
     initialize()
-
   }
 }
