@@ -50,6 +50,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Actor FSM protocol](http://allaboutscala.com/scala-frameworks/akka/#actor-fsm-protocol)
 - [Actor LoggingFSM](http://allaboutscala.com/scala-frameworks/akka/#actor-fsm-loggingfsm)
 - [Actor LoggingFSM Part Two](http://allaboutscala.com/scala-frameworks/akka/#actor-fsm-loggingfsm-part-two)
+- [Actor LoggingFSM Part Three](http://allaboutscala.com/scala-frameworks/akka/#actor-fsm-loggingfsm-part-three)
 
 Stay in touch via [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
