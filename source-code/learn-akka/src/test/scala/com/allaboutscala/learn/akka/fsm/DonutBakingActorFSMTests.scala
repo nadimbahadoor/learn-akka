@@ -2,7 +2,7 @@ package com.allaboutscala.learn.akka.fsm
 
 import akka.actor.ActorSystem
 import akka.testkit.{TestKit, ImplicitSender, DefaultTimeout, TestFSMRef}
-import com.allaboutscala.learn.akka.fsm.Tutorial_09_AkkaFSM_PartSix.{BakingStates, BakingData, DonutBakingActor, Stop}
+import com.allaboutscala.learn.akka.fsm.Tutorial_09_AkkaFSM_PartSix._
 import org.scalatest.{WordSpecLike, BeforeAndAfterAll, Matchers}
 
 /**
@@ -43,6 +43,16 @@ class DonutBakingActorFSMTests
   "DonutBakingActor" should {
     "have initial state of BakingStates.Stop" in {
       donutBakingActorFSM.stateName shouldEqual Stop
+    }
+  }
+
+  import scala.concurrent.duration._
+  "DonutBakingActor" should {
+    "process BakeDonut event and switch to the BakingStates.Start state" in {
+      donutBakingActorFSM ! BakeDonut
+
+      // test the state using awaitCond
+      awaitCond(donutBakingActorFSM.stateName == Start, 2 second, 1 second)
     }
   }
 
