@@ -50,9 +50,14 @@ class DonutBakingActorFSMTests
   "DonutBakingActor" should {
     "process BakeDonut event and switch to the BakingStates.Start state" in {
       donutBakingActorFSM ! BakeDonut
-
-      // test the state using awaitCond
       awaitCond(donutBakingActorFSM.stateName == Start, 2 second, 1 second)
+    }
+  }
+
+  "DonutBakingActor" should {
+    "process StopBaking event and switch to BakingStates.Stop state" in {
+      donutBakingActorFSM ! StopBaking
+      awaitCond(donutBakingActorFSM.stateName == Stop, 2 second, 1 second)
     }
   }
 
