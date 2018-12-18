@@ -1,0 +1,62 @@
+package com.allaboutscala.learn.akka.fsm
+
+import akka.actor.{Actor, ActorLogging, ActorSystem}
+import akka.testkit.{DefaultTimeout, ImplicitSender, TestKit}
+import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
+
+/**
+  * Created by Nadim Bahadoor on 28/06/2016.
+  *
+  *  Tutorial: Learn How To Use Akka
+  *
+  * [[http://allaboutscala.com/scala-frameworks/akka/]]
+  *
+  * Copyright 2016 Nadim Bahadoor (http://allaboutscala.com)
+  *
+  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+  * use this file except in compliance with the License. You may obtain a copy of
+  * the License at
+  *
+  *  [http://www.apache.org/licenses/LICENSE-2.0]
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  * License for the specific language governing permissions and limitations under
+  * the License.
+  */
+class DonutInfoActorTests
+  extends TestKit(ActorSystem("DonutActorTests"))
+    with ImplicitSender
+    with DefaultTimeout
+    with WordSpecLike
+    with BeforeAndAfterAll
+    with Matchers {
+
+
+  override protected def afterAll(): Unit = {
+    TestKit.shutdownActorSystem(system)
+  }
+}
+
+object DonutStoreProtocol {
+  case class Info(name: String)
+}
+
+class DonutInfoActor extends Actor with ActorLogging {
+  import DonutStoreProtocol._
+
+  def receive = {
+    case Info(name) if name == "vanilla" =>
+      log.info(s"Found valid $name donut")
+      sender ! true
+
+    case Info(name) =>
+      log.info(s"$name donut is not supported")
+      sender ! false
+
+    case event @ _ =>
+      log.info(s"Event $event is not allowed.")
+      throw new IllegalStateException(s"Event $event is not allowed")
+  }
+}
