@@ -1,7 +1,7 @@
 package com.allaboutscala.learn.akka.fsm
 
 import akka.actor.{Actor, ActorLogging, ActorSystem}
-import akka.testkit.{DefaultTimeout, ImplicitSender, TestKit}
+import akka.testkit.{TestActorRef, DefaultTimeout, ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 
 /**
@@ -33,6 +33,14 @@ class DonutInfoActorTests
     with BeforeAndAfterAll
     with Matchers {
 
+  import DonutStoreProtocol._
+  "Sending Tell Pattern Info(vanilla) message to DonutInfoActor" should {
+    "reply back with true" in {
+      val testActor = TestActorRef[DonutInfoActor]
+      testActor ! Info("vanilla")
+      expectMsg(true)
+    }
+  }
 
   override protected def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system)
