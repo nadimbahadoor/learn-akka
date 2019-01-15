@@ -42,6 +42,21 @@ class DonutInfoActorTests
     }
   }
 
+
+
+  import scala.concurrent.duration._
+  "DonutInfoActor" should {
+    "respond back within 100 millis" in {
+      within(100 millis) {
+        val testActor = TestActorRef[DonutInfoActor]
+        testActor ! Info("vanilla")
+        Thread.sleep(500)
+        expectMsg(true)
+      }
+    }
+  }
+
+
   override protected def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system)
   }
