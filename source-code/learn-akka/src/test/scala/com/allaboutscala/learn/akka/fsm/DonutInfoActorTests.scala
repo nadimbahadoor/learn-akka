@@ -4,6 +4,8 @@ import akka.actor.{Actor, ActorLogging, ActorSystem}
 import akka.testkit.{TestActorRef, DefaultTimeout, ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 
+import scala.util.Success
+
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
   *
@@ -53,6 +55,18 @@ class DonutInfoActorTests
         Thread.sleep(500)
         expectMsg(true)
       }
+    }
+  }
+
+
+
+  "Sending Ask Pattern Info(plain) message to DonutInfoActor" should {
+    "reply back with false" in {
+      import akka.pattern._
+      val testActor = TestActorRef[DonutInfoActor]
+      val result = testActor ? Info("plain")
+      val Success(reply: Boolean) = result.value.get
+      reply shouldBe false
     }
   }
 
