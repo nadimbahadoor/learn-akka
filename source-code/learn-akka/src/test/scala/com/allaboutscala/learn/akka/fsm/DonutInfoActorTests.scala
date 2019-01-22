@@ -71,6 +71,17 @@ class DonutInfoActorTests
   }
 
 
+
+  "Sending a Random Donut message to DonutInfoActor" should {
+    "throw IllegalStateException" in {
+      val testActor = TestActorRef[DonutInfoActor]
+      intercept[IllegalStateException] {
+        testActor.receive("Random Donut")
+      }
+    }
+  }
+
+
   override protected def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system)
   }
