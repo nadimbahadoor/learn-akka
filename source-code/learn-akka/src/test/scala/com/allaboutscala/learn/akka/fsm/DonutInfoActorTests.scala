@@ -82,6 +82,20 @@ class DonutInfoActorTests
   }
 
 
+
+  "The exception message when sending a Random Donut to DonutInfoActor" should {
+    "include the words: is not allowed" in {
+      val testActor = TestActorRef[DonutInfoActor]
+      val exception = the [IllegalStateException] thrownBy {
+        testActor.receive("Random Donut")
+      }
+      exception.getClass shouldEqual classOf[java.lang.IllegalStateException]
+      exception.getMessage should be ("Event Random Donut is not allowed")
+    }
+  }
+
+
+
   override protected def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system)
   }
