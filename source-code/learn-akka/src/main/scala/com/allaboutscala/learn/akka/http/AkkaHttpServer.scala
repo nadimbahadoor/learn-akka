@@ -2,10 +2,11 @@ package com.allaboutscala.learn.akka.http
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
+import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import com.allaboutscala.learn.akka.http.routes.ServerVersion
 import com.typesafe.scalalogging.LazyLogging
-import akka.http.scaladsl.server.Directives._
 
 import scala.io.StdIn
 import scala.util.{Failure, Success}
@@ -41,10 +42,14 @@ object AkkaHttpServer extends App with LazyLogging {
   val host = "127.0.0.1"
   val port = 8080
 
-  val routes: Route =
-    get {
-      complete("Akka HTTP Server is UP.")
-    }
+  // routes
+  val serverUpRoute: Route = get {
+    complete("Akka HTTP Server is UP.")
+  }
+
+  val serverVersion = new ServerVersion()
+  val serverVersionRoute = serverVersion.route()
+  val routes: Route =  serverVersionRoute ~ serverUpRoute
 
   val httpServerFuture = Http().bindAndHandle(routes, host, port)
   httpServerFuture.onComplete {
