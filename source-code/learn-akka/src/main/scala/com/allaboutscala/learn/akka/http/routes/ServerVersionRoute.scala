@@ -36,6 +36,23 @@ class ServerVersion {
       }
     }
   }
+
+
+
+  def routeAsJson(): Route = {
+    path("server-version-json") {
+      get {
+        val jsonResponse =
+          """
+            |{
+            | "app": "Akka HTTP REST Server",
+            | "version": "1.0.0.0"
+            |}
+          """.stripMargin
+        complete(HttpEntity(ContentTypes.`application/json`, jsonResponse))
+      }
+    }
+  }
 }
 
 

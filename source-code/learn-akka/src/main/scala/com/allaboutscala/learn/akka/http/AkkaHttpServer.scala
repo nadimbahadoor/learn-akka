@@ -49,7 +49,9 @@ object AkkaHttpServer extends App with LazyLogging {
 
   val serverVersion = new ServerVersion()
   val serverVersionRoute = serverVersion.route()
-  val routes: Route =  serverVersionRoute ~ serverUpRoute
+  val serverVersionRouteAsJson = serverVersion.routeAsJson()
+
+  val routes: Route =  serverVersionRoute ~ serverVersionRouteAsJson ~ serverUpRoute
 
   val httpServerFuture = Http().bindAndHandle(routes, host, port)
   httpServerFuture.onComplete {
