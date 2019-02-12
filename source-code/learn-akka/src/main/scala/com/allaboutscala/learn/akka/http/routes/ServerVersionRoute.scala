@@ -3,7 +3,7 @@ package com.allaboutscala.learn.akka.http.routes
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-
+import com.allaboutscala.learn.akka.http.jsonsupport.{JsonSupport, AkkaHttpRestServer}
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -26,7 +26,7 @@ import akka.http.scaladsl.server.Route
   * License for the specific language governing permissions and limitations under
   * the License.
   */
-class ServerVersion {
+class ServerVersion extends JsonSupport {
 
   def route(): Route = {
     path("server-version") {
@@ -50,6 +50,17 @@ class ServerVersion {
             |}
           """.stripMargin
         complete(HttpEntity(ContentTypes.`application/json`, jsonResponse))
+      }
+    }
+  }
+
+
+
+  def routeAsJsonEncoding(): Route = {
+    path("server-version-json-encoding") {
+      get {
+        val server = AkkaHttpRestServer("Akka HTTP REST Server", "1.0.0.0")
+        complete(server)
       }
     }
   }
