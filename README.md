@@ -65,6 +65,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Start Akka HTTP Server](http://allaboutscala.com/scala-frameworks/akka/#akka-http-start-server)
 - [HTTP GET plain text](http://allaboutscala.com/scala-frameworks/akka/#akka-http-get-plain-text)
 - [HTTP GET JSON response](http://allaboutscala.com/scala-frameworks/akka/#akka-http-get-json-response)
+- [JSON encoding](http://allaboutscala.com/scala-frameworks/akka/#akka-http-json-encoding)
 
 Stay in touch via [LinkedIn](https://linkedin.com/in/nadimbahadoor/), [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
