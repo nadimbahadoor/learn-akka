@@ -29,6 +29,9 @@ final case class AkkaHttpRestServer(app: String, version: String)
 
 trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
 
+  import spray.json._
+  implicit val printer = PrettyPrinter
+
   implicit val serverFormat = jsonFormat2(AkkaHttpRestServer)
 }
 
