@@ -5,7 +5,7 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
-import com.allaboutscala.learn.akka.http.routes.ServerVersion
+import com.allaboutscala.learn.akka.http.routes.{DonutRoutes, ServerVersion}
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.io.StdIn
@@ -51,8 +51,10 @@ object AkkaHttpServer extends App with LazyLogging {
   val serverVersionRoute = serverVersion.route()
   val serverVersionRouteAsJson = serverVersion.routeAsJson()
   val serverVersionJsonEncoding = serverVersion.routeAsJsonEncoding()
+  val donutRoutes = new DonutRoutes().route()
 
-  val routes: Route =  serverVersionRoute ~ serverVersionRouteAsJson ~ serverVersionJsonEncoding ~ serverUpRoute
+  val routes: Route =  donutRoutes ~ serverVersionRoute ~ serverVersionRouteAsJson ~ serverVersionJsonEncoding~
+    serverUpRoute
 
   val httpServerFuture = Http().bindAndHandle(routes, host, port)
   httpServerFuture.onComplete {

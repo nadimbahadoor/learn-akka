@@ -1,7 +1,10 @@
-package com.allaboutscala.learn.akka.http.jsonsupport
+package com.allaboutscala.learn.akka.http.routes
 
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import spray.json.DefaultJsonProtocol
+import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.server.Route
+import com.allaboutscala.learn.akka.http.jsonsupport.{Donut, JsonSupport}
+import com.typesafe.scalalogging.LazyLogging
+import akka.http.scaladsl.server.Directives._
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -24,17 +27,17 @@ import spray.json.DefaultJsonProtocol
   * License for the specific language governing permissions and limitations under
   * the License.
   */
+class DonutRoutes extends JsonSupport with LazyLogging {
 
-final case class AkkaHttpRestServer(app: String, version: String)
-final case class Donut(name: String, price: Double)
+  def route(): Route = {
+    path("create-donut") {
+      post {
+        entity(as[Donut]) { donut =>
+          logger.info(s"creating donut = $donut")
+          complete(StatusCodes.Created, s"Created donut = $donut")
+        }
+      }
+    }
+  }
 
-trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
-
-  import spray.json._
-  implicit val printer = PrettyPrinter
-
-  implicit val serverFormat = jsonFormat2(AkkaHttpRestServer)
-  implicit val donutFormat = jsonFormat2(Donut)
 }
-
-
