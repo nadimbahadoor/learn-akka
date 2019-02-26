@@ -69,6 +69,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [JSON pretty print](http://allaboutscala.com/scala-frameworks/akka/#akka-http-json-pretty-print)
 - [HTTP POST JSON payload](http://allaboutscala.com/scala-frameworks/akka/#akka-http-post-json)
 - [Could not find implicit value](http://allaboutscala.com/scala-frameworks/akka/#akka-http-could-not-find-implicit-value) 
+- [HTTP DELETE restriction](http://allaboutscala.com/scala-frameworks/akka/#akka-http-delete-method-restriction)
 
 Stay in touch via [LinkedIn](https://linkedin.com/in/nadimbahadoor/), [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
