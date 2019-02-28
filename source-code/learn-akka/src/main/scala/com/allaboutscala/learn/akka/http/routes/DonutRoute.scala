@@ -1,10 +1,12 @@
 package com.allaboutscala.learn.akka.http.routes
 
 import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.server.Route
-import com.allaboutscala.learn.akka.http.jsonsupport.{Donut, JsonSupport}
-import com.typesafe.scalalogging.LazyLogging
 import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Route
+import com.allaboutscala.learn.akka.http.jsonsupport.{Donut, Donuts, JsonSupport}
+import com.typesafe.scalalogging.LazyLogging
+
+import scala.concurrent.Future
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -29,16 +31,38 @@ import akka.http.scaladsl.server.Directives._
   */
 class DonutRoutes extends JsonSupport with LazyLogging {
 
+  val donutDao = new DonutDao()
+
   def route(): Route = {
     path("create-donut") {
       post {
         entity(as[Donut]) { donut =>
           logger.info(s"creating donut = $donut")
-          complete(StatusCodes.Created, s"Created donut = $donut")
+          complete(StatusCodes.Creat  ed, s"Created donut = $donut")
         }
       } ~ delete {
           complete(StatusCodes.MethodNotAllowed, "The HTTP DELETE operation is not allowed for the create-donut path.")
         }
+      } ~ path("donuts") {
+        get {
+          onSuccess(donutDao.fetchDonuts()){ donuts =>
+            complete(StatusCodes.OK, donuts)
+          }
+        }
       }
     }
+}
+
+class DonutDao {
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  val donutsFromDb = Vector(
+    Donut("Plain Donut", 1.50),
+    Donut("Chocolate Donut", 2),
+    Donut("Glazed Donut", 2.50)
+  )
+
+  def fetchDonuts(): Future[Donuts] = Future {
+    Donuts(donutsFromDb)
+  }
 }

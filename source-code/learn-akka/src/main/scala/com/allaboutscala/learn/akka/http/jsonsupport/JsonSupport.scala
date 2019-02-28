@@ -27,6 +27,7 @@ import spray.json.DefaultJsonProtocol
 
 final case class AkkaHttpRestServer(app: String, version: String)
 final case class Donut(name: String, price: Double)
+final case class Donuts(donuts: Seq[Donut])
 
 trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
 
@@ -35,6 +36,7 @@ trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
 
   implicit val serverFormat = jsonFormat2(AkkaHttpRestServer)
   implicit val donutFormat = jsonFormat2(Donut)
+  implicit val donutsJsonFormat = jsonFormat1(Donuts)
 }
 
 
