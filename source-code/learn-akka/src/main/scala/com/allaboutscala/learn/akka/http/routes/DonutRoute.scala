@@ -38,7 +38,7 @@ class DonutRoutes extends JsonSupport with LazyLogging {
       post {
         entity(as[Donut]) { donut =>
           logger.info(s"creating donut = $donut")
-          complete(StatusCodes.Creat  ed, s"Created donut = $donut")
+          complete(StatusCodes.Created, s"Created donut = $donut")
         }
       } ~ delete {
           complete(StatusCodes.MethodNotAllowed, "The HTTP DELETE operation is not allowed for the create-donut path.")
