@@ -71,6 +71,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Could not find implicit value](http://allaboutscala.com/scala-frameworks/akka/#akka-http-could-not-find-implicit-value) 
 - [HTTP DELETE restriction](http://allaboutscala.com/scala-frameworks/akka/#akka-http-delete-method-restriction)
 - [Future onSuccess](http://allaboutscala.com/scala-frameworks/akka/#akka-http-future-onsuccess)
+- [Future onComplete](http://allaboutscala.com/scala-frameworks/akka/#akka-http-future-oncomplete)
 
 Stay in touch via [LinkedIn](https://linkedin.com/in/nadimbahadoor/), [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
