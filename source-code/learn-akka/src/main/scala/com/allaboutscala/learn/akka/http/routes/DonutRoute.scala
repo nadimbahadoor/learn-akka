@@ -7,6 +7,7 @@ import com.allaboutscala.learn.akka.http.jsonsupport.{Donut, Donuts, JsonSupport
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.Future
+import scala.util.{Success, Failure}
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -47,6 +48,13 @@ class DonutRoutes extends JsonSupport with LazyLogging {
         get {
           onSuccess(donutDao.fetchDonuts()){ donuts =>
             complete(StatusCodes.OK, donuts)
+          }
+        }
+      } ~ path("donuts-with-future-success-failure") {
+        get {
+          onComplete(donutDao.fetchDonuts()) {
+            case Success(donuts) => complete(StatusCodes.OK, donuts)
+            case Failure(ex) => complete(s"Failed to fetch donuts = ${ex.getMessage}")
           }
         }
       }
