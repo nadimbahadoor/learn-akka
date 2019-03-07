@@ -1,6 +1,6 @@
 package com.allaboutscala.learn.akka.http.routes
 
-import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import com.allaboutscala.learn.akka.http.jsonsupport.{Donut, Donuts, JsonSupport}
@@ -56,6 +56,10 @@ class DonutRoutes extends JsonSupport with LazyLogging {
             case Success(donuts) => complete(StatusCodes.OK, donuts)
             case Failure(ex) => complete(s"Failed to fetch donuts = ${ex.getMessage}")
           }
+        }
+      } ~ path("complete-with-http-response") {
+        get {
+          complete(HttpResponse(status = StatusCodes.OK, entity = "Using an HttpResponse object"))
         }
       }
     }
