@@ -7,7 +7,7 @@ import com.allaboutscala.learn.akka.http.jsonsupport.{Donut, Donuts, JsonSupport
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.Future
-import scala.util.{Success, Failure}
+import scala.util.{Try, Success, Failure}
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -61,8 +61,13 @@ class DonutRoutes extends JsonSupport with LazyLogging {
         get {
           complete(HttpResponse(status = StatusCodes.OK, entity = "Using an HttpResponse object"))
         }
+      } ~ path("donut-with-try-httpresponse") {
+        get {
+          val result: HttpResponse = donutDao.tryFetchDonuts().getOrElse(donutDao.defaultResponse())
+          complete(result)
+        }
       }
-    }
+  }
 }
 
 class DonutDao {
@@ -77,4 +82,13 @@ class DonutDao {
   def fetchDonuts(): Future[Donuts] = Future {
     Donuts(donutsFromDb)
   }
+
+  def tryFetchDonuts(): Try[HttpResponse] = Try {
+    throw new IllegalStateException("Boom!")
+  }
+
+  def defaultResponse(): HttpResponse =
+    HttpResponse(
+      status = StatusCodes.NotFound,
+      entity = "An unexpected error occurred. Please try again.")
 }
