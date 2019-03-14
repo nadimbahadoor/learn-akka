@@ -2,8 +2,9 @@ package com.allaboutscala.learn.akka.http
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
+import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.server._
 import akka.stream.ActorMaterializer
 import com.allaboutscala.learn.akka.http.routes.{DonutRoutes, ServerVersion}
 import com.typesafe.scalalogging.LazyLogging
@@ -42,10 +43,21 @@ object AkkaHttpServer extends App with LazyLogging {
   val host = "127.0.0.1"
   val port = 8080
 
-  // routes
-  val serverUpRoute: Route = get {
-    complete("Akka HTTP Server is UP.")
-  }
+  implicit val globalRejectionHandler =
+    RejectionHandler.newBuilder()
+      .handle { case ValidationRejection(msg, route) =>
+        complete(StatusCodes.InternalServerError, s"The operation is not supported, error = $msg")
+      }
+      .handleNotFound {
+        complete(StatusCodes.NotFound, "The path is not supported.")
+      }
+      .result()
+
+
+//  // routes
+//  val serverUpRoute: Route = get {
+//    complete("Akka HTTP Server is UP.")
+//  }
 
   val serverVersion = new ServerVersion()
   val serverVersionRoute = serverVersion.route()
@@ -53,8 +65,8 @@ object AkkaHttpServer extends App with LazyLogging {
   val serverVersionJsonEncoding = serverVersion.routeAsJsonEncoding()
   val donutRoutes = new DonutRoutes().route()
 
-  val routes: Route =  donutRoutes ~ serverVersionRoute ~ serverVersionRouteAsJson ~ serverVersionJsonEncoding~
-    serverUpRoute
+  val routes: Route =  donutRoutes ~ serverVersionRoute ~ serverVersionRouteAsJson ~ serverVersionJsonEncoding//
+  // ~ serverUpRoute
 
   val httpServerFuture = Http().bindAndHandle(routes, host, port)
   httpServerFuture.onComplete {
