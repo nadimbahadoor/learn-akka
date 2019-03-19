@@ -54,6 +54,11 @@ object AkkaHttpServer extends App with LazyLogging {
       .result()
 
 
+  implicit val globalExceptionHandler = ExceptionHandler {
+    case e: RuntimeException => complete(s"A runtime exception occurred with, msg = ${e.getMessage}")
+  }
+
+
 //  // routes
 //  val serverUpRoute: Route = get {
 //    complete("Akka HTTP Server is UP.")

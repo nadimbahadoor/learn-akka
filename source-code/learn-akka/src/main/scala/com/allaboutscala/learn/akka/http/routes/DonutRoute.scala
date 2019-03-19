@@ -66,7 +66,11 @@ class DonutRoutes extends JsonSupport with LazyLogging {
           val result: HttpResponse = donutDao.tryFetchDonuts().getOrElse(donutDao.defaultResponse())
           complete(result)
         }
-      }
+      } ~ path("akka-http-failwith") {
+        get {
+          failWith(new RuntimeException("Boom"))
+        }
+    }
   }
 }
 
