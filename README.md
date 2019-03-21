@@ -76,6 +76,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Try failure using an HttpResponse](http://allaboutscala.com/scala-frameworks/akka/#akka-http-try-failure-httpresponse)
 - [Global rejection handler](http://allaboutscala.com/scala-frameworks/akka/#akka-http-global-rejection-handler)
 - [Global exception handler](http://allaboutscala.com/scala-frameworks/akka/#akka-http-global-exception-handler)
+- [Load HTML from resources](http://allaboutscala.com/scala-frameworks/akka/#akka-http-load-html-resource)
 
 Stay in touch via [LinkedIn](https://linkedin.com/in/nadimbahadoor/), [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
