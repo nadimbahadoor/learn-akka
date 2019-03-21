@@ -70,6 +70,8 @@ class DonutRoutes extends JsonSupport with LazyLogging {
         get {
           failWith(new RuntimeException("Boom"))
         }
+    } ~ path("akka-http-getresource") {
+      getFromResource("error-page.html")
     }
   }
 }
