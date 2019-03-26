@@ -42,36 +42,43 @@ class DonutRoutes extends JsonSupport with LazyLogging {
           complete(StatusCodes.Created, s"Created donut = $donut")
         }
       } ~ delete {
-          complete(StatusCodes.MethodNotAllowed, "The HTTP DELETE operation is not allowed for the create-donut path.")
+        complete(StatusCodes.MethodNotAllowed, "The HTTP DELETE operation is not allowed for the create-donut path.")
+      }
+    } ~ path("donuts") {
+      get {
+        onSuccess(donutDao.fetchDonuts()) { donuts =>
+          complete(StatusCodes.OK, donuts)
         }
-      } ~ path("donuts") {
-        get {
-          onSuccess(donutDao.fetchDonuts()){ donuts =>
-            complete(StatusCodes.OK, donuts)
-          }
+      }
+    } ~ path("donuts-with-future-success-failure") {
+      get {
+        onComplete(donutDao.fetchDonuts()) {
+          case Success(donuts) => complete(StatusCodes.OK, donuts)
+          case Failure(ex) => complete(s"Failed to fetch donuts = ${ex.getMessage}")
         }
-      } ~ path("donuts-with-future-success-failure") {
-        get {
-          onComplete(donutDao.fetchDonuts()) {
-            case Success(donuts) => complete(StatusCodes.OK, donuts)
-            case Failure(ex) => complete(s"Failed to fetch donuts = ${ex.getMessage}")
-          }
-        }
-      } ~ path("complete-with-http-response") {
-        get {
-          complete(HttpResponse(status = StatusCodes.OK, entity = "Using an HttpResponse object"))
-        }
-      } ~ path("donut-with-try-httpresponse") {
-        get {
-          val result: HttpResponse = donutDao.tryFetchDonuts().getOrElse(donutDao.defaultResponse())
-          complete(result)
-        }
-      } ~ path("akka-http-failwith") {
-        get {
-          failWith(new RuntimeException("Boom"))
-        }
+      }
+    } ~ path("complete-with-http-response") {
+      get {
+        complete(HttpResponse(status = StatusCodes.OK, entity = "Using an HttpResponse object"))
+      }
+    } ~ path("donut-with-try-httpresponse") {
+      get {
+        val result: HttpResponse = donutDao.tryFetchDonuts().getOrElse(donutDao.defaultResponse())
+        complete(result)
+      }
+    } ~ path("akka-http-failwith") {
+      get {
+        failWith(new RuntimeException("Boom"))
+      }
     } ~ path("akka-http-getresource") {
       getFromResource("error-page.html")
+    } ~ path("donuts" / Segment) { donutName =>
+      get {
+        val result = donutDao.donutDetails(donutName)
+        onSuccess(result) { donutDetail =>
+          complete(StatusCodes.OK, donutDetail)
+        }
+      }
     }
   }
 }
@@ -97,4 +104,13 @@ class DonutDao {
     HttpResponse(
       status = StatusCodes.NotFound,
       entity = "An unexpected error occurred. Please try again.")
+
+  def donutDetails(donutName: String): Future[String] = Future {
+    // this is obviously not as efficient as we're scanning a Vector by just one property of the Donut domain object.
+    val someDonut = donutsFromDb.find(_.name == donutName)
+    someDonut match {
+      case Some(donut) => s"$donut"
+      case None => s"Donut = $donutName was not found."
+    }
+  }
 }
