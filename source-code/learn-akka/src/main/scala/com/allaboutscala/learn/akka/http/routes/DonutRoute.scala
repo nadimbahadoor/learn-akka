@@ -79,6 +79,10 @@ class DonutRoutes extends JsonSupport with LazyLogging {
           complete(StatusCodes.OK, donutDetail)
         }
       }
+    } ~ path("donuts" / "stock" / new scala.util.matching.Regex("""donut_[a-zA-Z0-9\-]*""")) { donutId =>
+      get {
+        complete(StatusCodes.OK, s"Looking up donut stock by donutId = $donutId")
+      }
     }
   }
 }
