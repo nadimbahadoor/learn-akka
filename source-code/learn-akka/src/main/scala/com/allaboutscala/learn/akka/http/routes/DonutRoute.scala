@@ -84,13 +84,20 @@ class DonutRoutes extends JsonSupport with LazyLogging {
         complete(StatusCodes.OK, s"Looking up donut stock by donutId = $donutId")
       }
     } ~ path("donut" / "prices") {
-        get {
-          parameter("donutName") { donutName =>
-            val output = s"Received parameter: donutName=$donutName"
-            complete(StatusCodes.OK, output)
-          }
+      get {
+        parameter("donutName") { donutName =>
+          val output = s"Received parameter: donutName=$donutName"
+          complete(StatusCodes.OK, output)
         }
       }
+    } ~ path("donut" / "bake") {
+      get {
+        parameters('donutName, 'topping ? "sprinkles") { (donutName, topping) =>
+          val output = s"Received parameters: donutName=$donutName and topping=$topping"
+          complete(StatusCodes.OK, output)
+        }
+      }
+    }
   }
 }
 
