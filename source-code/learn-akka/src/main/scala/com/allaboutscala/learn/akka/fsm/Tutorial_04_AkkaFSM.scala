@@ -24,7 +24,7 @@ import akka.actor.{LoggingFSM, ActorSystem, Props}
   * the License.
   */
 object Tutorial_04_AkkaFSM extends App {
-
+  
   println("Step 1: Create ActorSystem")
   val system = ActorSystem("DonutActorFSM")
 
