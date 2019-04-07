@@ -81,6 +81,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [RESTful URLS with regex](http://allaboutscala.com/scala-frameworks/akka/#akka-http-rest-url-regex)
 - [Query parameter](http://allaboutscala.com/scala-frameworks/akka/#akka-http-query-parameter)
 - [Optional query parameter](http://allaboutscala.com/scala-frameworks/akka/#akka-http-optional-query-parameter)
+- [Typed query parameters](http://allaboutscala.com/scala-frameworks/akka/#akka-http-typed-query-parameters)
 
 Stay in touch via [LinkedIn](https://linkedin.com/in/nadimbahadoor/), [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
