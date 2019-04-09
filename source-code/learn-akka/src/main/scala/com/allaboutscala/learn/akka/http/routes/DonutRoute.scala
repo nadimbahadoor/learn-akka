@@ -3,11 +3,12 @@ package com.allaboutscala.learn.akka.http.routes
 import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.unmarshalling.Unmarshaller.identityUnmarshaller
 import com.allaboutscala.learn.akka.http.jsonsupport.{Donut, Donuts, JsonSupport}
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.Future
-import scala.util.{Try, Success, Failure}
+import scala.util.{Failure, Success, Try}
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -104,9 +105,18 @@ class DonutRoutes extends JsonSupport with LazyLogging {
             complete(StatusCodes.OK, output)
           }
         }
+      } ~ path("bake-donuts") {
+        get {
+          import akka.http.scaladsl.unmarshalling.PredefinedFromStringUnmarshallers.CsvSeq
+          parameter('ingredients.as(CsvSeq[String])) { ingredients =>
+            val output = s"Received CSV parameter: ingredients=$ingredients"
+            complete(StatusCodes.OK, output)
+          }
+        }
       }
   }
 }
+
 
 class DonutDao {
   import scala.concurrent.ExecutionContext.Implicits.global
