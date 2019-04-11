@@ -31,6 +31,9 @@ import scala.util.{Failure, Success, Try}
   * License for the specific language governing permissions and limitations under
   * the License.
   */
+
+final case class Ingredient(donutName: String, priceLevel: Double)
+
 class DonutRoutes extends JsonSupport with LazyLogging {
 
   val donutDao = new DonutDao()
@@ -110,6 +113,13 @@ class DonutRoutes extends JsonSupport with LazyLogging {
           import akka.http.scaladsl.unmarshalling.PredefinedFromStringUnmarshallers.CsvSeq
           parameter('ingredients.as(CsvSeq[String])) { ingredients =>
             val output = s"Received CSV parameter: ingredients=$ingredients"
+            complete(StatusCodes.OK, output)
+          }
+        }
+      } ~ path("ingredients-to-case-class") {
+        get {
+          parameters('donutName.as[String], 'priceLevel.as[Double]).as(Ingredient) { ingredient =>
+            val output = s"Encoded query parameters into case class, ingredient: $ingredient"
             complete(StatusCodes.OK, output)
           }
         }
