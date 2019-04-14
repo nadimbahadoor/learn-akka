@@ -123,6 +123,13 @@ class DonutRoutes extends JsonSupport with LazyLogging {
             complete(StatusCodes.OK, output)
           }
         }
+      } ~ path("request-with-headers") {
+        get {
+          extractRequest { httpRequest =>
+            val headers = httpRequest.headers.mkString(", ")
+            complete(StatusCodes.OK, s"headers = $headers")
+          }
+        }
       }
   }
 }
