@@ -130,8 +130,20 @@ class DonutRoutes extends JsonSupport with LazyLogging {
             complete(StatusCodes.OK, s"headers = $headers")
           }
         }
+      } ~ path("multiple-segments" / Segments ) { segments =>
+        get {
+          val partA :: partB :: partC :: Nil = segments
+          val output =
+            s"""
+               |Received the following Segments = $segments, with
+               |partA = $partA
+               |partB = $partB
+               |partC = $partC
+             """.stripMargin
+          complete(StatusCodes.OK, output)
+        }
       }
-  }
+    }
 }
 
 
