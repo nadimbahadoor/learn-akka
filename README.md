@@ -79,6 +79,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Load HTML from resources](http://allaboutscala.com/scala-frameworks/akka/#akka-http-load-html-resource)
 - [RESTful URLs with segment](http://allaboutscala.com/scala-frameworks/akka/#akka-http-rest-url-segment)
 - [RESTful URLS with regex](http://allaboutscala.com/scala-frameworks/akka/#akka-http-rest-url-regex)
+- [RESTful URLS with multiple segments](http://allaboutscala.com/scala-frameworks/akka/#akka-http-multiple-segments)
 - [Query parameter](http://allaboutscala.com/scala-frameworks/akka/#akka-http-query-parameter)
 - [Optional query parameter](http://allaboutscala.com/scala-frameworks/akka/#akka-http-optional-query-parameter)
 - [Typed query parameters](http://allaboutscala.com/scala-frameworks/akka/#akka-http-typed-query-parameters)
