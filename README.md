@@ -86,6 +86,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [CSV query parameter](http://allaboutscala.com/scala-frameworks/akka/#akka-http-csv-query-parameter)
 - [Query parameter to case class](http://allaboutscala.com/scala-frameworks/akka/#akka-http-query-parameter-to-case-class)
 - [HTTP request headers](http://allaboutscala.com/scala-frameworks/akka/#akka-http-request-headers)
+- [HTTP client GET](http://allaboutscala.com/scala-frameworks/akka/#akka-http-client-get)
 
 Stay in touch via [LinkedIn](https://linkedin.com/in/nadimbahadoor/), [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
