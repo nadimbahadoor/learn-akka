@@ -87,6 +87,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Query parameter to case class](http://allaboutscala.com/scala-frameworks/akka/#akka-http-query-parameter-to-case-class)
 - [HTTP request headers](http://allaboutscala.com/scala-frameworks/akka/#akka-http-request-headers)
 - [HTTP client GET](http://allaboutscala.com/scala-frameworks/akka/#akka-http-client-get)
+- [Unmarshal HttpResponse to case class](http://allaboutscala.com/scala-frameworks/akka/#akka-http-unmarshal-case-class)
 
 Stay in touch via [LinkedIn](https://linkedin.com/in/nadimbahadoor/), [Facebook](http://www.facebook.com/allaboutscala) and [Twitter](https://twitter.com/NadimBahadoor) for upcoming tutorials!
 
