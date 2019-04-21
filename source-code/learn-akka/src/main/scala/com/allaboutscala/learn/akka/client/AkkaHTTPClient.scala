@@ -2,10 +2,14 @@ package com.allaboutscala.learn.akka.client
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.{HttpRequest, HttpMethods}
+import akka.http.scaladsl.model.{HttpMethods, HttpRequest}
+import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
+import com.allaboutscala.learn.akka.http.jsonsupport.{Donuts, JsonSupport}
 
-import scala.util.{Success, Failure}
+import scala.concurrent.{Await, Future}
+import scala.util.{Failure, Success}
+import scala.concurrent.duration._
 
 /**
   * Created by Nadim Bahadoor on 28/06/2016.
@@ -28,7 +32,7 @@ import scala.util.{Success, Failure}
   * License for the specific language governing permissions and limitations under
   * the License.
   */
-object AkkaHttpClient extends App {
+object AkkaHttpClient extends App with JsonSupport {
 
   implicit val system = ActorSystem("akka-http-donuts-client")
   implicit val materializer = ActorMaterializer()
@@ -43,7 +47,15 @@ object AkkaHttpClient extends App {
   val donutsResponse = Http().singleRequest(donutsHttpRequest)
   donutsResponse
     .onComplete {
-      case Success(donutsResponse) => println(s"Raw HttpResponse = $donutsResponse")
+      case Success(donutsResponse) =>
+        println(s"Raw HttpResponse = $donutsResponse")
+
+        // You obviously should not block using Await.result(...) and use flatMap or other similar future sequencing mechanics
+        val donutsF: Future[Donuts] = Unmarshal(donutsResponse).to[Donuts]
+        val donuts: Donuts = Await.result(donutsF, 5.second)
+        println(s"Unmarshalled HttpResponse to Case Class = $donuts")
+
+
       case Failure(e) => println(s"Failed to HTTP GET $donutsUri, error = ${e.getMessage}")
     }
 
