@@ -2,9 +2,10 @@ package com.allaboutscala.learn.akka.client
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.{HttpMethods, HttpRequest}
+import akka.http.scaladsl.model.{MediaTypes, HttpEntity, HttpMethods, HttpRequest}
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
+import akka.util.ByteString
 import com.allaboutscala.learn.akka.http.jsonsupport.{Donuts, JsonSupport}
 
 import scala.concurrent.{Await, Future}
@@ -38,6 +39,7 @@ object AkkaHttpClient extends App with JsonSupport {
   implicit val materializer = ActorMaterializer()
   implicit val ec = system.dispatcher
 
+  // HTTP GET request
   val donutsUri = "http://localhost:8080/donuts"
   val donutsHttpRequest = HttpRequest(
     uri = donutsUri,
@@ -60,5 +62,26 @@ object AkkaHttpClient extends App with JsonSupport {
     }
 
   Thread.sleep(3000)
+
+
+
+  // HTTP POST request
+  val jsonDonutInput = ByteString("""{"name":"plain donut", "price":1.50}""")
+  val httpPostCreateDonut = HttpRequest(
+    uri = "http://localhost:8080/create-donut",
+    method = HttpMethods.POST,
+    entity = HttpEntity(MediaTypes.`application/json`, jsonDonutInput))
+
+
+  val createDonutF = for {
+    response <- Http().singleRequest(httpPostCreateDonut)
+    _        = println(s"Akka HTTP request status = ${response.status}")
+    if response.status.isSuccess()
+    output   <- Unmarshal(response).to[String]
+  } yield println(s"HTTP POST request output = $output")
+
+  Await.result(createDonutF, 5.second)
+
+
   system.terminate()
 }
