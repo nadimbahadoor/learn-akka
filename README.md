@@ -59,6 +59,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 # Akka TestKit
 - [Testing Actor FSM](http://allaboutscala.com/scala-frameworks/akka/#akka-testkit-test-actor-fsm)
 - [Testing Actor](http://allaboutscala.com/scala-frameworks/akka/#akka-testkit-test-actor)
+- [Testing Akka HTTP POST](http://allaboutscala.com/scala-frameworks/akka/#akka-testkit-http-post)
 
 # Akka HTTP
 - [Akka HTTP project setup build.sbt](http://allaboutscala.com/scala-frameworks/akka/#akka-http-project-setup-build-sbt)
