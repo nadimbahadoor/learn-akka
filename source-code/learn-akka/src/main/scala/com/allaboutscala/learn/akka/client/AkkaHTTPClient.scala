@@ -72,7 +72,6 @@ object AkkaHttpClient extends App with JsonSupport {
     method = HttpMethods.POST,
     entity = HttpEntity(MediaTypes.`application/json`, jsonDonutInput))
 
-
   val createDonutF = for {
     response <- Http().singleRequest(httpPostCreateDonut)
     _        = println(s"Akka HTTP request status = ${response.status}")
