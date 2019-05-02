@@ -62,6 +62,7 @@ The examples below are the source code for Akka Tutorials from [allaboutscala.co
 - [Testing Akka HTTP POST](http://allaboutscala.com/scala-frameworks/akka/#akka-testkit-http-post)
 - [Testing Query Parameter](http://allaboutscala.com/scala-frameworks/akka/#akka-testkit-query-parameter)
 - [Testing Required Query Parameter](http://allaboutscala.com/scala-frameworks/akka/#akka-testkit-required-query-parameter)
+- [Testing Optional Query Parameter](http://allaboutscala.com/scala-frameworks/akka/#akka-testkit-optional-query-parameter)
 
 # Akka HTTP
 - [Akka HTTP project setup build.sbt](http://allaboutscala.com/scala-frameworks/akka/#akka-http-project-setup-build-sbt)
