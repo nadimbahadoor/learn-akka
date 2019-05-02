@@ -51,5 +51,23 @@ class DonutQueryParametersTest
       }
     }
 
+
+
+    "Validate the pass-through of required and optional parameters in /donut/bake" in {
+      Get("/donut/bake?donutName=plain%20donut&topping=chocolate") ~> donutRoutes ~> check {
+        responseAs[String] shouldEqual "Received parameters: donutName=plain donut and topping=chocolate"
+        status shouldEqual StatusCodes.OK
+      }
+    }
+
+
+
+    "Verify the optional parameter topping for /donut/bake" in {
+      Get("/donut/bake?donutName=plain%20donut") ~> donutRoutes ~> check {
+        responseAs[String] shouldEqual "Received parameters: donutName=plain donut and topping=sprinkles"
+        status shouldEqual StatusCodes.OK
+      }
+    }
+
   }
 }
