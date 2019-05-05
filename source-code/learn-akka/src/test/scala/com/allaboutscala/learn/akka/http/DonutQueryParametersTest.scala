@@ -69,5 +69,23 @@ class DonutQueryParametersTest
       }
     }
 
+
+
+    "Verify typed parameters for /ingredients" in {
+      Get("/ingredients?donutName=plain%20donut&priceLevel=1.50") ~> donutRoutes ~> check {
+        responseAs[String] shouldEqual "Received parameters: donutName=plain donut, priceLevel=1.5"
+        status shouldEqual StatusCodes.OK
+      }
+    }
+
+
+
+    "Check for wrong types being passed through to the priceLevel query param at /ingredients" in {
+      Get("/ingredients?donutName=plain%20donut&priceLevel=cheap") ~> Route.seal(donutRoutes) ~> check {
+        responseAs[String] shouldEqual """The query parameter 'priceLevel' was malformed:
+                                         |'cheap' is not a valid 64-bit floating point value""".stripMargin
+        status shouldEqual StatusCodes.BadRequest
+      }
+    }
   }
 }
