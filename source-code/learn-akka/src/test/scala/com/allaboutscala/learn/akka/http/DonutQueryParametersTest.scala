@@ -87,5 +87,14 @@ class DonutQueryParametersTest
         status shouldEqual StatusCodes.BadRequest
       }
     }
+
+
+
+    "Verify CSV parameters for /bake-donuts" in {
+      Get("/bake-donuts?ingredients=flour,sugar,vanilla") ~> donutRoutes ~> check {
+        responseAs[String] shouldEqual "Received CSV parameter: ingredients=List(flour, sugar, vanilla)"
+        status shouldEqual StatusCodes.OK
+      }
+    }
   }
 }
